@@ -1,21 +1,21 @@
 {
-	"name": "dcheck",
-	"description": "Library for generating random data sets and automated checking of test constraints",
-    "copyright": "Copyright © 2014, ncrashed",
-    "authors": ["ncrashed"],
+    "name": "dcheck",
+    "description": "Library for generating random data sets and automated checking of test constraints",
+    "copyright": "Copyright © 2014, Anton Gushcha",
+    "authors": ["NCrashed <ncrashed@gmail.com>"],
     "license": "MIT",
-	"dependencies": {
-	},
-	"configurations": [
-	   {
-	       "name": "library"
-	   },
-	   {
-	       "name": "unittest",
-	       "targetType": "executable",
-	       "targetPath": "bin",
-	       "targetName": "dcheck-tests",
-	       "mainSourceFile": "test.d"
-	   }
-	]
+    "dependencies": {
+    },
+    "configurations": [
+        {
+            "name": "library"
+        },
+        {
+            "name": "unittest",
+            "targetType": "executable",
+            "targetPath": "bin",
+            "targetName": "dcheck-tests",
+            "mainSourceFile": "test.d"
+        }
+    ]
 }
