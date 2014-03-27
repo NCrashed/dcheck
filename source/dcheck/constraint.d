@@ -132,7 +132,7 @@ void checkConstraint(alias constraint)(size_t testsCount = 100, size_t shrinkCou
             {
                 auto builder = appender!string;
                 builder.put("\n==============================\n");
-                builder.put(text("Constraint ", constraint.stringof, " is failed!\n"));
+                builder.put(text("Constraint ", fullyQualifiedName!(constraint), " is failed!\n"));
                 builder.put(text("Calls count: ", calls+1, ". Shrinks count: ", shrinks, "\n"));
                 builder.put(text("Parameters: \n"));
                 alias ParameterIdentifierTuple!constraint paramNames;
@@ -218,6 +218,7 @@ void checkConstraint(alias constraint)(size_t testsCount = 100, size_t shrinkCou
         }
     }
 }
+
 unittest
 {
     import std.math;
