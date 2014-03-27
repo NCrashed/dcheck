@@ -7,7 +7,7 @@ Library for generating random data sets and automated checking of test constrain
 Usage
 =====
 First, consider simple example:
-```
+```D
 unittest
 {
   checkConstraint!((int a, int b) => a + b == b + a);
@@ -16,7 +16,7 @@ unittest
 As the provided delegate is always true unittest passes clearly.
 
 Negative result example:
-```
+```D
 unittest
 {
   import std.math;
@@ -35,7 +35,7 @@ Parameters:
 Result shrinking is performed to provide you concise fail case.
 
 DCheck can detect parameter names for regular functions:
-```
+```D
 bool foo(bool a, bool b)
 {
   return a && !b;
@@ -60,7 +60,7 @@ Parameters:
 Building
 ========
 To use DCheck as dependency in your project add the following in your `dub.json` file:
-```
+```JSON
 "dependencies": {
   "dcheck": ">=0.1.0"
 }
