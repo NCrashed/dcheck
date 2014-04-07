@@ -29,7 +29,7 @@ import std.traits;
 import std.conv;
 import std.range;
 import std.stdio;
-import dcheck.arbitrary;
+public import dcheck.arbitrary;
 
 private template allHasArbitrary(T...)
 {
