@@ -63,14 +63,22 @@ void checkConstraint(alias constraint)(size_t testsCount = 100, size_t shrinkCou
     if(isSomeFunction!constraint && allHasArbitrary!(ParameterTypeTuple!constraint))
 {
     // generates string of applying constaint with range values
-    string genApply(string var)
+    string genApply(string var, string error)
     {
-        string res = "bool "~var~" = constraint(";
+        string res = "try {";
+        res ~= var~" = constraint(";
         foreach(j, T; ParameterTypeTuple!constraint)
         {
             res ~= "range"~j.to!string~".front,";
         }
-        return res~");";
+        res ~= ");
+        } 
+        catch( Throwable th )
+        {
+            "~var~" = false;
+            "~error~" = th;
+        }";
+        return res;
     }
     
     // generates string for declaring range variables
@@ -119,8 +127,11 @@ void checkConstraint(alias constraint)(size_t testsCount = 100, size_t shrinkCou
     
     testloop: foreach(calls; 0..testsCount)
     {
-        mixin(genApply("res"));
+        Throwable savedError = null;
+        bool res = false;
         
+        mixin(genApply("res", "savedError"));
+
         // catched a bug, start shrink
         if(!res)
         {
@@ -131,6 +142,12 @@ void checkConstraint(alias constraint)(size_t testsCount = 100, size_t shrinkCou
             void printFinalMessage()
             {
                 auto builder = appender!string;
+                
+                if(savedError !is null)
+                {
+                    builder.put(savedError.toString);
+                }
+                
                 builder.put("\n==============================\n");
                 static if(__traits(compiles, fullyQualifiedName!(constraint)))
                     builder.put(text("Constraint ", fullyQualifiedName!(constraint), " is failed!\n"));
