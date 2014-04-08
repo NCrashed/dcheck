@@ -343,7 +343,8 @@ template Arbitrary(T)
     
     auto generate()
     {
-        return (() => Maybe!T(cast(T)uniform!"[]"('\u0000', '\U0010FFFF'))).generator;
+        enum alphabet = "abcdeABCDE12345áàäéèëÁÀÄÉÈËЯВНЛАڴٸڱ☭ତ⇕";
+        return (() => Maybe!T(cast(T)alphabet[uniform(0, alphabet.length)])).generator;
     }
     
     auto shrink(T val)
@@ -358,15 +359,15 @@ template Arbitrary(T)
 }
 unittest
 {
-    Arbitrary!char.generate;
+    Arbitrary!char.generate.take(100);
     assert(Arbitrary!char.shrink('a').empty);
     assert(Arbitrary!char.specialCases().empty);
     
-    Arbitrary!wchar.generate;
+    Arbitrary!wchar.generate.take(100);
     assert(Arbitrary!wchar.shrink('a').empty);
     assert(Arbitrary!wchar.specialCases().empty);
     
-    Arbitrary!dchar.generate;
+    Arbitrary!dchar.generate.take(100);
     assert(Arbitrary!dchar.shrink('a').empty);
     assert(Arbitrary!dchar.specialCases().empty);
 }
