@@ -8,8 +8,7 @@
     },
     "configurations": [
         {
-            "name": "library",
-            "targetType": "sourceLibrary"
+            "name": "library"
         },
         {
             "name": "unittest",

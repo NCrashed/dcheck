@@ -159,6 +159,8 @@ template HasArbitrary(T)
 */
 template CheckArbitrary(T)
 {
+    // dirty hack to force at least one instance of the template
+    alias t = Arbitrary!T;
     static assert(__traits(compiles, Arbitrary!T), "Type "~T.stringof~" doesn't have Arbitrary template!");
     static assert(HasArbitrary!T.HasGenerate!(), "Type "~T.stringof~" doesn't have generate function in Arbitrary template!");
     static assert(HasArbitrary!T.HasShrink!(), "Type "~T.stringof~" doesn't have shrink function in Arbitrary template!");
@@ -433,7 +435,7 @@ unittest
 }
 
 /**
-*   Arbitrary template for char, dchar, wchar
+*   Arbitrary template for arrays
 */
 template Arbitrary(T)
     if(isArray!T && HasArbitrary!(ElementType!T).HasGenerate!() && !isSomeString!T)
