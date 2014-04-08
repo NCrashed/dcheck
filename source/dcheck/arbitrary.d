@@ -151,6 +151,48 @@ template HasArbitrary(T)
 }
 
 /**
+*   You can use this to define default shrink implementation.
+*/
+mixin template DefaultShrink(T)
+{
+    import std.range;
+    auto shrink(T val)
+    {
+        return takeNone!(T[]);
+    }
+}
+
+/**
+*   You can use this to define default special cases implementation.
+*/
+mixin template DefaultSpecialCases(T)
+{
+    import std.range;
+    auto specialCases()
+    {
+        return takeNone!(T[]);
+    }
+}
+
+/**
+*   You can use this to define only generate function.
+*/
+mixin template DefaultShrinkAndSpecialCases(T)
+{
+    import std.range;
+    
+    auto shrink(T val) 
+    {
+        return takeNone!(T[]);
+    }
+    
+    auto specialCases()
+    {
+        return takeNone!(T[]);
+    }
+}
+
+/**
 *   Check the $(B T) type has properly defined $(B Arbitrary) template. Prints useful user-friendly messages
 *   at compile time.
 *
@@ -318,15 +360,7 @@ template Arbitrary(T)
         return [true, false];
     }
     
-    auto shrink(T val)
-    {
-        return takeNone!(T[]);
-    }
-    
-    auto specialCases()
-    {
-        return takeNone!(T[]);
-    }
+    mixin DefaultShrinkAndSpecialCases!T;
 }
 unittest
 {
@@ -349,15 +383,7 @@ template Arbitrary(T)
         return (() => Maybe!T(cast(T)alphabet[uniform(0, alphabet.length)])).generator;
     }
     
-    auto shrink(T val)
-    {
-        return takeNone!(dchar[]);
-    }
-    
-    auto specialCases()
-    {
-        return takeNone!(dchar[]);
-    }
+    mixin DefaultShrinkAndSpecialCases!T;
 }
 unittest
 {
