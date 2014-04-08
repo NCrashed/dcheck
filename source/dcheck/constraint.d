@@ -87,7 +87,7 @@ void checkConstraint(alias constraint)(size_t testsCount = 100, size_t shrinkCou
         string res = "";
         foreach(j, T; ParameterTypeTuple!constraint)
         {
-            res ~= "auto range"~j.to!string~" = Arbitrary!("~T.stringof~").generate;\n";
+            res ~= "auto range"~j.to!string~" = chain(Arbitrary!("~T.stringof~").generate, Arbitrary!("~T.stringof~").specialCases);\n";
             res ~= "assert(!range"~j.to!string~".empty, \"Generating range is empty at checking start!"
                 "Check Arbitrary!"~T.stringof~" implementation!\")\n;";
         }
@@ -220,7 +220,7 @@ void checkConstraint(alias constraint)(size_t testsCount = 100, size_t shrinkCou
                 mixin("if (range"~j.to!string~".empty) "
                     "{
                         flags["~j.to!string~"] = true;
-                        range"~j.to!string~" = Arbitrary!("~T.stringof~").generate;
+                        range"~j.to!string~" = chain(Arbitrary!("~T.stringof~").generate, Arbitrary!("~T.stringof~").specialCases);
                     }"
                 );
             }
