@@ -2,6 +2,8 @@ DCheck
 ======
 [![Build Status](https://travis-ci.org/NCrashed/dcheck.svg?branch=master)](https://travis-ci.org/NCrashed/dcheck)
 
+**Almost isn't usable until the DMD [feature](https://github.com/D-Programming-Language/dmd/pull/2417) is completed**
+
 Library for generating random data sets and automated checking of test constraints. The library design is inspired by Haskell one - [QuickCheck](http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2). User define `Arbitrary` template (behaves like typeclass in haskell) for a type to add random generating feature and result shrinking. Then the library can pass random sets of data into special functions called constraints and provide you fancy formatted minimal fail case.
 
 Usage
