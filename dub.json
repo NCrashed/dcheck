@@ -5,17 +5,5 @@
     "authors": ["NCrashed <ncrashed@gmail.com>"],
     "license": "MIT",
     "dependencies": {
-    },
-    "configurations": [
-        {
-            "name": "library"
-        },
-        {
-            "name": "unittest",
-            "targetType": "executable",
-            "targetPath": "bin",
-            "targetName": "dcheck-tests",
-            "mainSourceFile": "test.d"
-        }
-    ]
+    }
 }
